@@ -1,0 +1,21 @@
+//created on: Apr 12, 2014
+package org.devnation.rubyonrules
+
+//list any import classes here.
+import org.devnation.rubyonrules.model.Withdrawl
+
+
+//declare any global variables here
+global org.devnation.rubyonrules.utils.AccountAlertService alertSvc
+
+
+/* Print an alert when a Withdrawl over $500 is entered */
+rule "Alert when Withdrawl amount is over $500"
+    dialect "mvel"
+    when
+        withdrawl : Withdrawl( amount > 500 )
+    then
+        System.out.println("Alert : Withdrawl over $500 from account " + withdrawl.accountNumber);
+        alertSvc.addAccount(withdrawl.accountNumber);
+end
+
